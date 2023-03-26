@@ -1,0 +1,21 @@
+﻿@page "/"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p><strong><i>Workshops starting soon:</i></strong></p>
+    @foreach (var workshop in Model.Workshops)
+    {
+        <div class="card my-3 bg-info">
+            <div class="card-header">
+                @workshop.Name
+            </div>
+            <div class="card-body bg-light">
+                Starts at @(workshop.DateTimeStart.ToString("dd MMMM HH:mm")).
+            </div>
+        </div>
+    }
+</div>
