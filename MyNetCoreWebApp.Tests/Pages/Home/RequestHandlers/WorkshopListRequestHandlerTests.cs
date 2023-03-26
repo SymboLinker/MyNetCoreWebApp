@@ -20,11 +20,10 @@ public class WorkshopListRequestHandlerTests : TestBase
         });
 
         // Act
-        var request = new WorkshopListRequest { DateTimeStartFrom = DateTime.Now };
-        var result = await i.Get<WorkshopListRequestHandler>().HandleAsync(request);
+        var workshops = await i.Get<GetUpcomingWorkshops>().HandleAsync();
 
         // Assert
-        var workshop = Assert.Single(result);
+        var workshop = Assert.Single(workshops);
         Assert.Equal("Programming for beginners", workshop.Name);
     }
 
@@ -42,10 +41,13 @@ public class WorkshopListRequestHandlerTests : TestBase
         }
 
         // Act
-        var request = new WorkshopListRequest { DateTimeStartFrom = DateTime.Now };
-        var result = await i.Get<WorkshopListRequestHandler>().HandleAsync(request);
+        var workshops = await i.Get<GetUpcomingWorkshops>().HandleAsync();
 
         // Assert
-        Assert.Equal(10, result.Length);
+        Assert.Equal(10, workshops.Length);
+        foreach(var i in new int[] { 11, 12, 13, 14, 15 })
+        {
+            Assert.DoesNotContain(i.ToString(), workshops.Select(x => x.Name));
+        }
     }
 }

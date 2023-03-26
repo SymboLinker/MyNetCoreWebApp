@@ -1,21 +1,21 @@
 ﻿namespace MyNetCoreWebApp.Pages.Welcome.RequestHandlers;
 
-public class WorkshopListRequest
-{
-    public DateTime DateTimeStartFrom { get; set; }
-}
-public class WorkshopListRequestHandler
+public class GetUpcomingWorkshops
 {
     private readonly IFunDb db;
 
-    public WorkshopListRequestHandler(IFunDb db)
+    public GetUpcomingWorkshops(IFunDb db)
     {
         this.db = db;
     }
 
-    public async Task<Workshop[]> HandleAsync(WorkshopListRequest request)
+    public async Task<Workshop[]> HandleAsync()
     {
-        var workshops = await db.QueryAsync<Workshop>(x => x.DateTimeStart > request.DateTimeStartFrom);
-        return workshops.OrderBy(x => x.DateTimeStart).Take(10).ToArray();
+        var now = DateTime.Now;
+        var upcomingWorkshops = await db.QueryAsync<Workshop>(records => records
+            .Where(x => x.DateTimeStart > now)
+            .OrderBy(x => x.DateTimeStart)
+            .Take(10));
+        return upcomingWorkshops.ToArray();
     }
 }

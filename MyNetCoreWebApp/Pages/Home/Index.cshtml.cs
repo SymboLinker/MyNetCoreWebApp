@@ -11,11 +11,10 @@ public class IndexModel : PageModel
         i = iget;
     }
 
-    public Workshop[] Workshops { get; set; } = null!;
+    public Workshop[] UpcomingWorkshops { get; set; } = null!;
 
     public async Task OnGet()
     {
-        var request = new WorkshopListRequest { DateTimeStartFrom = DateTime.Now };
-        Workshops = await i.Get<WorkshopListRequestHandler>().HandleAsync(request);
+        UpcomingWorkshops = await i.Get<GetUpcomingWorkshops>().HandleAsync();
     }
 }

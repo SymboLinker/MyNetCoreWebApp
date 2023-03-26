@@ -82,15 +82,15 @@ public class CRUDTest
         var id2 = await db.InsertAsync(new MyRecord { Message = "Hello a second time!" });
 
         // Act & assert 1
-        var record1 = Assert.Single(await db.QueryAsync<MyRecord>(x => x.Message.Contains("world")));
+        var record1 = Assert.Single(await db.QueryAsync<MyRecord>(records => records.Where(x => x.Message.Contains("world"))));
         Assert.Equal("Hello world!", record1.Message);
 
         // Act & assert 2
-        var record2 = Assert.Single(await db.QueryAsync<MyRecord>(x => x.Message.Contains("second")));
+        var record2 = Assert.Single(await db.QueryAsync<MyRecord>(records => records.Where(x => x.Message.Contains("second"))));
         Assert.Equal("Hello a second time!", record2.Message);
 
         // Act & assert 3
-        var records = await db.QueryAsync<MyRecord>(x => x.Message.Contains("e"));
+        var records = await db.QueryAsync<MyRecord>(records => records.Where(x => x.Message.Contains("e")));
         Assert.Equal(2, records.Count());
     }
 
@@ -114,6 +114,6 @@ public class CRUDTest
     public async Task QuerySingleOrDefault()
     {
         var db = new Db();
-        Assert.Null(await db.QueryFSingleOrDefaultAsync<MyRecord>(x => x.Message == "not fuond"));
+        Assert.Null(await db.QueryFSingleOrDefaultAsync<MyRecord>(x => x.Message == "not found"));
     }
 }

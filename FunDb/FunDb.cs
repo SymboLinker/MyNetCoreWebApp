@@ -12,7 +12,7 @@ namespace FunDb;
 public interface IFunDb
 {
     Task<int> InsertAsync<T>(T record, CancellationToken cancellationToken = default) where T : notnull;
-    Task<IEnumerable<T>> QueryAsync<T>(Func<T, bool> predicate) where T : notnull;
+    Task<IEnumerable<T>> QueryAsync<T>(Func<IEnumerable<T>, IEnumerable<T>>? query = null) where T : notnull;
     Task<T> QuerySingleAsync<T>(Func<T, bool> predicate) where T : notnull;
     Task<T?> QueryFSingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull;
     Task<int> DeleteAsync<T>(Func<T, bool> predicate, CancellationToken cancellationToken = default)  where T : notnull;
@@ -67,7 +67,7 @@ public static class __FunDbInternals
 
         public async Task<T?>QueryFSingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull
         {
-            return (await QueryAsync(predicate)).SingleOrDefault();
+            return (await QueryAsync<T>(records => records.Where(predicate))).SingleOrDefault();
         }
 
         public async Task<int> DeleteAsync<T>(Func<T, bool> predicate, CancellationToken cancellationToken) where T : notnull
@@ -76,7 +76,7 @@ public static class __FunDbInternals
             await _slim.WaitAsync(cancellationToken);
             try
             {
-                var toDelete = (await QueryAsync(predicate)).ToArray();
+                var toDelete = (await QueryAsync<T>(records => records.Where(predicate))).ToArray();
                 foreach (var record in toDelete)
                 {
                     table.Remove(record, out _);
@@ -89,14 +89,14 @@ public static class __FunDbInternals
             }
         }
 
-        public Task<IEnumerable<T>> QueryAsync<T>(Func<T, bool>? predicate = null) where T : notnull
+        public Task<IEnumerable<T>> QueryAsync<T>(Func<IEnumerable<T>, IEnumerable<T>>? query = null) where T : notnull
         {
             var records = GetTable<T>().Keys.Select(x => (T)x);
-            if (predicate is null)
+            if (query is null)
             {
                 return Task.FromResult(records);
             }
-            return Task.FromResult(records.Where(predicate));
+            return Task.FromResult(query(records).AsEnumerable());
         }
 
         private ConcurrentDictionary<object, byte?> GetTable<T>() where T : notnull
