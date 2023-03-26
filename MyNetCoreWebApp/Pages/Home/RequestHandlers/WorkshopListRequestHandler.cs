@@ -1,6 +1,4 @@
-﻿using FunDb;
-
-namespace MyNetCoreWebApp.Pages.Welcome.RequestHandlers;
+﻿namespace MyNetCoreWebApp.Pages.Welcome.RequestHandlers;
 
 public class WorkshopListRequest
 {

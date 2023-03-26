@@ -1,5 +1,4 @@
-﻿using FunDb;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TestHelpers;
 
 namespace MyNetCoreWebApp.Tests;
