@@ -114,6 +114,6 @@ public class CRUDTest
     public async Task QuerySingleOrDefault()
     {
         var db = new Db();
-        Assert.Null(await db.QueryFSingleOrDefaultAsync<MyRecord>(x => x.Message == "not found"));
+        Assert.Null(await db.QuerySingleOrDefaultAsync<MyRecord>(x => x.Message == "not found"));
     }
 }

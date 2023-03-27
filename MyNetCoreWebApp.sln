@@ -7,9 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNetCoreWebApp", "MyNetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNetCoreWebApp.Tests", "MyNetCoreWebApp.Tests\MyNetCoreWebApp.Tests.csproj", "{D9120C0F-A3DA-4637-95A8-E420FE841537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunDb", "FunDb\FunDb.csproj", "{67649BE1-6115-4B62-A1E1-12B8F0C1B825}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunDb", "FunDb\FunDb.csproj", "{67649BE1-6115-4B62-A1E1-12B8F0C1B825}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunDb.Tests", "FunDb.Tests\FunDb.Tests.csproj", "{4767C92D-4107-41B1-A954-266FFC1BC063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunDb.Tests", "FunDb.Tests\FunDb.Tests.csproj", "{4767C92D-4107-41B1-A954-266FFC1BC063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLib", "MyLib\MyLib.csproj", "{DB9E505E-FED2-4B16-B2FF-A61380ABE935}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BA7677E-9D41-4870-A72C-CD6F376A741B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,10 @@ Global
 		{4767C92D-4107-41B1-A954-266FFC1BC063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4767C92D-4107-41B1-A954-266FFC1BC063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4767C92D-4107-41B1-A954-266FFC1BC063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB9E505E-FED2-4B16-B2FF-A61380ABE935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB9E505E-FED2-4B16-B2FF-A61380ABE935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB9E505E-FED2-4B16-B2FF-A61380ABE935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB9E505E-FED2-4B16-B2FF-A61380ABE935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

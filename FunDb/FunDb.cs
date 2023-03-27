@@ -14,7 +14,7 @@ public interface IFunDb
     Task<int> InsertAsync<T>(T record, CancellationToken cancellationToken = default) where T : notnull;
     Task<IEnumerable<T>> QueryAsync<T>(Func<IEnumerable<T>, IEnumerable<T>>? query = null) where T : notnull;
     Task<T> QuerySingleAsync<T>(Func<T, bool> predicate) where T : notnull;
-    Task<T?> QueryFSingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull;
+    Task<T?> QuerySingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull;
     Task<int> DeleteAsync<T>(Func<T, bool> predicate, CancellationToken cancellationToken = default)  where T : notnull;
 }
 
@@ -62,10 +62,10 @@ public static class __FunDbInternals
 
         public async Task<T> QuerySingleAsync<T>(Func<T, bool> predicate) where T : notnull
         {
-            return (await QueryFSingleOrDefaultAsync(predicate)) ?? throw new Exception($"Could not find a {typeof(T).Name} that matches predicate {predicate}.");
+            return (await QuerySingleOrDefaultAsync(predicate)) ?? throw new Exception($"Could not find a {typeof(T).Name} that matches predicate {predicate}.");
         }
 
-        public async Task<T?>QueryFSingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull
+        public async Task<T?>QuerySingleOrDefaultAsync<T>(Func<T, bool> predicate) where T : notnull
         {
             return (await QueryAsync<T>(records => records.Where(predicate))).SingleOrDefault();
         }

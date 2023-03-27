@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FunDb\FunDb.csproj" />
+    <ProjectReference Include="..\MyLib\MyLib.csproj" />
   </ItemGroup>
 
 </Project>

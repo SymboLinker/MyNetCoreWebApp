@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+hoverable:hover {
+    font-size: 150%;
+    background-color: aquamarine;
+}

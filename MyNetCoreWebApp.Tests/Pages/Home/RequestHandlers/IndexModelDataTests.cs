@@ -2,10 +2,10 @@ using MyNetCoreWebApp.Pages.Welcome.RequestHandlers;
 
 namespace MyNetCoreWebApp.Tests.Pages.Home.RequestHandlers;
 
-public class WorkshopListRequestHandlerTests : TestBase
+public class IndexModelDataTests : TestBase
 {
     [Fact]
-    public async void Gets_workshops_that_start_in_future()
+    public async Task Gets_workshops_that_start_in_future()
     {
         // Arrange
         await db.InsertAsync(new Workshop
@@ -20,7 +20,8 @@ public class WorkshopListRequestHandlerTests : TestBase
         });
 
         // Act
-        var workshops = await i.Get<GetUpcomingWorkshops>().HandleAsync();
+        var data = await i.Get<IndexModelDataRequestHandler>().HandleAsync();
+        var workshops = data.UpcomingWorkshops;
 
         // Assert
         var workshop = Assert.Single(workshops);
@@ -28,7 +29,7 @@ public class WorkshopListRequestHandlerTests : TestBase
     }
 
     [Fact]
-    public async void Takes_10()
+    public async Task Takes_10()
     {
         // Arrange
         for(var i = 1; i < 15; i++)
@@ -41,7 +42,8 @@ public class WorkshopListRequestHandlerTests : TestBase
         }
 
         // Act
-        var workshops = await i.Get<GetUpcomingWorkshops>().HandleAsync();
+        var data = await i.Get<IndexModelDataRequestHandler>().HandleAsync();
+        var workshops = data.UpcomingWorkshops;
 
         // Assert
         Assert.Equal(10, workshops.Length);

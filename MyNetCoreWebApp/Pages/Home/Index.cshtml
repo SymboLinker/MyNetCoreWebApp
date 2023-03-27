@@ -4,17 +4,33 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p><strong><i>Workshops starting soon:</i></strong></p>
-    @foreach (var workshop in Model.UpcomingWorkshops)
+<div>
+    @if (TempData.TryGetValue(Constants.ErrorMessage, out var errorMessage))
     {
-        <div class="card my-3 bg-info">
-            <div class="card-header">
-                @workshop.Name
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+    <h1 class="display-4 text-center">Welcome</h1>
+    <p class="text-primary text-center"><strong><i>Workshops starting soon:</i></strong></p>
+    @foreach (var workshop in Model.Data.UpcomingWorkshops)
+    {
+        <div class="card my-3">
+            <div class="card-header text-light bg-dark text-center">
+                <h2>@workshop.Name</h2>
             </div>
             <div class="card-body bg-light">
-                Starts at @(workshop.DateTimeStart.ToString("dd MMMM HH:mm")).
+                <div>
+                    <i>Starts: @(workshop.DateTimeStart.ToString("dd MMMM HH:mm")).</i>
+                </div>
+                <div class="text-center">
+                    @workshop.Description
+                </div>
+                <div class="text-center">
+                    <a href="/workshops/details/@workshop.Id" class="btn btn-outline-dark mt-2">
+                        See more
+                    </a>
+                </div>
             </div>
         </div>
     }

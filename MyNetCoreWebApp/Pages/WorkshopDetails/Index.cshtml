@@ -1,0 +1,47 @@
+﻿@page "/workshops/details/{workshopId}"
+@using MyNetCoreWebApp.Pages.WorkshopDetails.RequestHandlers;
+@model IndexModel
+@{
+    ViewData["Title"] = "@Model.Workshop.Name";
+}
+
+<div>
+    <h1 class="display-4 text-center">@Model.Data.Workshop.Name</h1>
+    <p class="text-center">@Model.Data.Workshop.Description</p>
+    @if (TempData.TryGetValue(Constants.ErrorMessage, out var errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+    @if (TempData.TryGetValue(Constants.SuccessMessage, out var successMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @successMessage
+        </div>
+    }
+    @if (!Model.Data.Participants.Any())
+    {
+        <p>No participants registered yet.</p>
+    }
+    else
+    {
+        <h2>Participants</h2>
+        <ul>
+            @foreach (var participant in Model.Data.Participants)
+            {
+                <li>@participant.Name</li>
+            }
+        </ul>
+    }
+    <div class="col-md-6 mx-auto">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nameInput">Would you like to join? Enter your name:</label>
+                <input name="@nameof(SubscribeRequest.Name)" type="text" class="form-control" id="nameInput" aria-describedby="nameHelp" placeholder="Enter your name">
+                <small id="nameHelp" class="form-text text-muted">Privacy warning: your name will be visible in this example app.</small>
+            </div>
+            <button class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</div>
