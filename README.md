@@ -34,35 +34,35 @@ Notes:
 - [IGet](https://github.com/dotnet-iget/iget#readme) is a [NuGet package](https://www.nuget.org/packages/iget).
 
 This allows the unit tests to look like this, with a very small arrange step:
-```chsarp
-    [Theory]
-    [InlineData("", false)]
-    [InlineData("A", false)]
-    [InlineData("A ", false)]
-    [InlineData(" A", false)]
-    [InlineData("Ab", true)]
-    public async Task Validates_name_input_length(string nameInput, bool shouldSucceed)
+```csharp
+[Theory]
+[InlineData("", false)]
+[InlineData("A", false)]
+[InlineData("A ", false)]
+[InlineData(" A", false)]
+[InlineData("Ab", true)]
+public async Task Validates_name_input_length(string nameInput, bool shouldSucceed)
+{
+    // Arrange
+    var workshopId = await db.InsertAsync(new Workshop
     {
-        // Arrange
-        var workshopId = await db.InsertAsync(new Workshop
-        {
-            Name = "Programming for beginners",
-            DateTimeStart = DateTime.Now.AddHours(1),
-        });
+        Name = "Programming for beginners",
+        DateTimeStart = DateTime.Now.AddHours(1),
+    });
 
-        // Act
-        var request = new SubscribeRequest(nameInput, workshopId);
-        var result = await i.Get<SubscribeRequestHandler>().HandleAsync(request);
+    // Act
+    var request = new SubscribeRequest(nameInput, workshopId);
+    var result = await i.Get<SubscribeRequestHandler>().HandleAsync(request);
 
-        // Assert
-        if (shouldSucceed)
-        {
-            Assert.True(result.IsSuccess);
-        }
-        else
-        {
-            Assert.True(result.IsFail);
-            Assert.Equal("You should specify a name of at least 2 characters.", result.ErrorMessage);
-        }
+    // Assert
+    if (shouldSucceed)
+    {
+        Assert.True(result.IsSuccess);
     }
+    else
+    {
+        Assert.True(result.IsFail);
+        Assert.Equal("You should specify a name of at least 2 characters.", result.ErrorMessage);
+    }
+}
 ```
