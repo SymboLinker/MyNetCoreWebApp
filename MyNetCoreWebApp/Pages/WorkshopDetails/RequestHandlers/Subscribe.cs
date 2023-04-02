@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace MyNetCoreWebApp.Pages.WorkshopDetails.RequestHandlers;
+﻿namespace MyNetCoreWebApp.Pages.WorkshopDetails.RequestHandlers;
 
 public record SubscribeRequest(string Name, int WorkshopId);
 

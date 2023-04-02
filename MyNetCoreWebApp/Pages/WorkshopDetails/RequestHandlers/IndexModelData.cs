@@ -14,11 +14,11 @@ public class IndexModelDataRequestHandler
     public async Task<Result<IndexModelData>> HandleAsync(IndexModelDataRequest request)
     {
         var workshop = await db.QuerySingleOrDefaultAsync<Workshop>(x => x.Id == request.WorkshopId);
-        var participants = await db.QueryAsync<WorkshopParticipant>(records => records.Where(x => x.WorkshopId == request.WorkshopId));
         if (workshop is null)
         {
             return Result.Fail<IndexModelData>($"A workshop with Id '{request.WorkshopId}' could not be found.");
         }
+        var participants = await db.QueryAsync<WorkshopParticipant>(records => records.Where(x => x.WorkshopId == request.WorkshopId));
         return Result.Success(new IndexModelData
         {
             Workshop = workshop,
