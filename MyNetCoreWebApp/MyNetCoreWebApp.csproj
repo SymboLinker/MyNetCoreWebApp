@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IGet" Version="1.1.4" />
+    <PackageReference Include="IGet" Version="1.1.5" />
   </ItemGroup>
 
   <ItemGroup>
